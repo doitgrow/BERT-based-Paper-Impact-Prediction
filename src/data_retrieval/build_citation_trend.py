@@ -3,7 +3,7 @@ import time
 import multiprocessing
 import datetime
 import sqlite3
-import pickle
+import pickle5 as pickle
 import pandas as pd
 
 # DB에 없는 EID 만 선택
@@ -47,9 +47,9 @@ def get_citation(EID):
     except Exception as e:
         ct.driver.close()
 
-def run(f, n_processes=4):
+def run(data:list, n_processes=4):
     exist_eids = load_eids_from_sql(r"D:\BERT-based-Paper-Impact-Prediction\rsc\training_data\Citation_data.db")
-    new_eids = load_eids_from_pickle(f)
+    new_eids = set(data)
     target_eids = list(new_eids - exist_eids)
     print(f"데이터 수집 개수 : {len(target_eids)}")
 
