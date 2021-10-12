@@ -3,7 +3,7 @@ import time
 import multiprocessing
 import datetime
 import sqlite3
-import pickle5 as pickle
+import pickle
 import pandas as pd
 
 # DB에 없는 EID 만 선택
@@ -75,29 +75,10 @@ def run(data:list, n_processes=4):
 
 if __name__ == "__main__":
 
-    # 수집 타겟 데이터를 SQL에 없는 것들만 뽑아내기
-    exist_eids = load_eids_from_sql(r"D:\BERT-based-Paper-Impact-Prediction\rsc\training_data\Citation_data.db")
-    new_eids = load_eids_from_pickle(r"D:\BERT-based-Paper-Impact-Prediction\rsc\training_data\training_data_AI_full.pickle")
-    target_eids = list(new_eids - exist_eids)
-    print(f"데이터 수집 개수 : {len(target_eids)}")
+    with open(r"D:\BERT-based-Paper-Impact-Prediction\rsc\preparation_data\train_eids.txt", 'r', encoding='UTF-8') as f:
+        eids = f.readlines()
+        
+    eids = [eid.strip() for eid in eids]
 
-    try:
-        pool = multiprocessing.Pool(processes=5) # multiprocessing.cpu_count()
-        pool.map(get_citation, target_eids) 
-        pool.close()
-        pool.join()
-    except:
-        try:
-            pool = multiprocessing.Pool(processes=6) # multiprocessing.cpu_count()
-            pool.map(get_citation, target_eids) 
-            pool.close()
-            pool.join()
-        except:
-            try:
-                pool = multiprocessing.Pool(processes=6) # multiprocessing.cpu_count()
-                pool.map(get_citation, target_eids) 
-                pool.close()
-                pool.join()
-            except:
-                pass
+    run(eids, 4)
 
