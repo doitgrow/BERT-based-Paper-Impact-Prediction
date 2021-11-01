@@ -32,6 +32,7 @@ def save_data_to_sql(dict_data, db_path):
     con.close()
 
 
+
 # 인용 수 데이터 얻기
 def get_citation(EID):
     try:
@@ -79,6 +80,12 @@ if __name__ == "__main__":
         eids = f.readlines()
         
     eids = [eid.strip() for eid in eids]
-
-    run(eids, 4)
+    new_eids = set(eids)
+    exist_eids = load_eids_from_sql(r"D:\BERT-based-Paper-Impact-Prediction\rsc\training_data\Citation_data.db")
+    target_eids = list(new_eids - exist_eids)
+    print(f"데이터 수집 개수 : {len(target_eids)}")
+    
+    for eid in target_eids:
+        get_citation(eid)
+    # run(eids, 1)
 
