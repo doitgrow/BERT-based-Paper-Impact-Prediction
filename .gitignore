@@ -9,3 +9,7 @@ ISSN_docData_dict_ai.pickle
 ISSN_docData_dict_ae.pickle
 training_data_AE_full.pickle
 training_data_AI_full.pickle
+bert_model.ckpt.data-00000-of-00001
+engi_bert_L-12_H-768_A-12.zip
+X_data.db
+reference.db

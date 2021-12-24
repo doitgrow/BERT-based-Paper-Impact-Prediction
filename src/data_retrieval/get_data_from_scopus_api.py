@@ -60,4 +60,3 @@ if __name__ == "__main__":
 #     # with open("ISSN_docData_dict_ae.pickle", 'wb') as f:
 #     #     pickle.dump(ISSN_docData_dict, f)
 
-    
